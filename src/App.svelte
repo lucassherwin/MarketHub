@@ -2,21 +2,13 @@
   // firebase
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
 
+  import { firebaseConfig } from '../firebaseConfig'
+
   import firebase from "firebase/app";
   import "firebase/firestore";
   import "firebase/auth";
   import "firebase/performance";
-  import "firebase/analytics";
-
-  let firebaseConfig = {
-    apiKey: "AIzaSyCPj0y5C0its_v1Xu6Us_0b0OLpr2TH1g0",
-    authDomain: "market-e3784.firebaseapp.com",
-    projectId: "market-e3784",
-    storageBucket: "market-e3784.appspot.com",
-    messagingSenderId: "32809875020",
-    appId: "1:32809875020:web:924c46825037f47ce2e6e9",
-    measurementId: "G-7GPF9J412Y"
-  };
+  import "firebase/analytics";  
 
   firebase.initializeApp(firebaseConfig);
 
