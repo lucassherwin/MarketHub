@@ -1,16 +1,25 @@
 <script>
   import createUserWithEmailAndPassword from 'firebase/auth';
 
+  import { doc, setDoc } from 'firebase/firestore'
+
   import { email, password, userType } from '../stores';
 
   export let auth;
 
-  function signUp(email, password, userType) {
+  // export let db;
+
+  // async function createUser() {
+  //   await setDoc(doc(db, `${userType}`))
+  // }
+  
+  async function signUp(email, password, userType) {
     console.log(email, password, userType);
 
     auth.createUserWithEmailAndPassword(email, password)
     .then((userCred) => {
       // once a user successfully signs up create a new farmer or customer depending on the type of user
+      // db.collection(`${userType}`).doc(``)
       console.log(userCred);
     })
     .catch((error) => {
@@ -27,10 +36,16 @@
 <label>Password:</label>
 <input type="password" bind:value={$password}>
 
-<p>I am a:</p>
-<input type='radio' value='Customer' bind:value={$userType}>
-<label>Customer</label>
-<input type='radio' value='Merchant' bind:value={$userType}>
-<label>Merchant</label>
- <br>
+<div>
+  <p>I am a:</p>
+  <div>
+    <input type='radio' value='customers' bind:value={$userType} id='customer'>
+    <label for='customer'>Customer</label>
+  </div>
+  <div>
+    <input type='radio' value='merchants' bind:value={$userType} id='merchant'>
+    <label for='merchant'>Merchant</label>
+  </div>
+</div>
+
 <button on:click={() => signUp($email, $password, $userType)}>Sign Up</button>
