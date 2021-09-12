@@ -1,24 +1,26 @@
 <script>
-  import createUserWithEmailAndPassword from 'firebase/auth';
+  import { FirebaseApp, User, Doc, Collection } from "sveltefire";
 
-  import { doc, setDoc } from 'firebase/firestore'
+  import createUserWithEmailAndPassword from 'firebase/auth';
 
   import { email, password, userType } from '../stores';
 
   export let auth;
 
-  // export let db;
-
-  // async function createUser() {
-  //   await setDoc(doc(db, `${userType}`))
-  // }
-  
-  async function signUp(email, password, userType) {
-    console.log(email, password, userType);
+  function signUp(email, password, userType, ref) {
+    // console.log(email, password, userType);
 
     auth.createUserWithEmailAndPassword(email, password)
     .then((userCred) => {
       // once a user successfully signs up create a new farmer or customer depending on the type of user
+      // if customer -> create customer doc
+      if(userType === 'customers') {
+        console.log(ref)
+        // ref.set({
+        //   name: email
+        // })
+      }
+      // if merchant -> create merchant doc
       // db.collection(`${userType}`).doc(``)
       console.log(userCred);
     })
@@ -36,16 +38,24 @@
 <label>Password:</label>
 <input type="password" bind:value={$password}>
 
-<div>
-  <p>I am a:</p>
-  <div>
-    <input type='radio' value='customers' bind:value={$userType} id='customer'>
-    <label for='customer'>Customer</label>
-  </div>
-  <div>
-    <input type='radio' value='merchants' bind:value={$userType} id='merchant'>
-    <label for='merchant'>Merchant</label>
-  </div>
-</div>
 
-<button on:click={() => signUp($email, $password, $userType)}>Sign Up</button>
+  <div>
+    <p>I am a:</p>
+    <div>
+      <label for='customer'>
+        Customer
+        <input type='radio' value='customers' bind:value={$userType} id='customer' bind:group={$userType}>
+      </label>
+    </div>
+    <div>
+      <label for='merchant'>
+        Merchant
+        <input type='radio' value='merchants' bind:value={$userType} id='merchant' bind:group={$userType}>
+      </label>
+    </div>
+  </div>
+  {#if $userType !== ""}
+    <Collection path={`${$userType}`} let:ref={userRef}>
+      <button on:click={() => signUp($email, $password, $userType, userRef)}>Sign Up</button>
+    </Collection>
+  {/if}

@@ -12,6 +12,8 @@
 
   firebase.initializeApp(firebaseConfig);
 
+  // const db = firebase.firestore();
+
   // components
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
@@ -31,7 +33,7 @@
       <button on:click={() => auth.signOut()}>Sign Out</button>
       
       <div slot="signed-out">
-        <SignIn auth={auth} />
+        <!-- <SignIn auth={auth} /> -->
         <SignUp auth={auth} />
       </div>
 
