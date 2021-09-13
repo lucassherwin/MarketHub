@@ -17,6 +17,7 @@
   // components
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
+  import Market from './components/Market.svelte';
 </script>
 
 <main>
@@ -46,6 +47,8 @@
         {customer.name}
       {/each}
     </Collection>
+
+    <Market />
   </FirebaseApp>
 
 </main>

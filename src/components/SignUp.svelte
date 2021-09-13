@@ -3,7 +3,7 @@
 
   import createUserWithEmailAndPassword from 'firebase/auth';
 
-  import { email, password, userType } from '../stores';
+  import { email, password, userType, currentUser } from '../stores';
 
   export let auth;
 
@@ -56,6 +56,12 @@
   </div>
   {#if $userType !== ""}
     <Collection path={`${$userType}`} let:ref={userRef}>
-      <button on:click={() => signUp($email, $password, $userType, userRef)}>Sign Up</button>
+      <!-- <button on:click={() => signUp($email, $password, $userType, userRef)}>Sign Up</button> -->
+      <!-- fake auth for now -->
+      <button on:click={() => userRef.add({
+        name: $email,
+        total: 0,
+        cart: []
+      })}>Sign Up!</button>
     </Collection>
   {/if}
