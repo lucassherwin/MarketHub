@@ -3,26 +3,24 @@
 
   import createUserWithEmailAndPassword from 'firebase/auth';
 
-  import { email, password, userType, currentUser } from '../stores';
+  import { email, password, userType, currentUser, name } from '../stores';
 
   export let auth;
+  export let db;
 
-  function signUp(email, password, userType, ref) {
+  function signUp() {
     // console.log(email, password, userType);
 
-    auth.createUserWithEmailAndPassword(email, password)
-    .then((userCred) => {
-      // once a user successfully signs up create a new farmer or customer depending on the type of user
-      // if customer -> create customer doc
-      if(userType === 'customers') {
-        console.log(ref)
-        // ref.set({
-        //   name: email
-        // })
-      }
-      // if merchant -> create merchant doc
-      // db.collection(`${userType}`).doc(``)
-      console.log(userCred);
+    auth.createUserWithEmailAndPassword($email, $password)
+    .then(userCred => { // creates a doc with the users uid to query against later on
+      db.collection($userType).doc(userCred.user.uid).set({
+        name: $name,
+        cartTotal: 0,
+        cart: []
+      }).then(() => {
+        $currentUser = [userCred.user.uid, $userType] // save currentUser data
+        console.log('this works', $currentUser)
+      })
     })
     .catch((error) => {
       console.error(error.code, error.message)
@@ -32,6 +30,9 @@
 
 <h1>Sign Up</h1>
 
+<label>Name:</label>
+<input type='text' bind:value={$name}>
+
 <label>Email:</label>
 <input type='email' bind:value={$email}>
 
@@ -39,29 +40,22 @@
 <input type="password" bind:value={$password}>
 
 
+<div>
+  <p>I am a:</p>
   <div>
-    <p>I am a:</p>
-    <div>
-      <label for='customer'>
-        Customer
-        <input type='radio' value='customers' bind:value={$userType} id='customer' bind:group={$userType}>
-      </label>
-    </div>
-    <div>
-      <label for='merchant'>
-        Merchant
-        <input type='radio' value='merchants' bind:value={$userType} id='merchant' bind:group={$userType}>
-      </label>
-    </div>
+    <label for='customer'>
+      Customer
+      <input type='radio' value='customers' bind:value={$userType} id='customer' bind:group={$userType}>
+    </label>
   </div>
-  {#if $userType !== ""}
-    <Collection path={`${$userType}`} let:ref={userRef}>
-      <!-- <button on:click={() => signUp($email, $password, $userType, userRef)}>Sign Up</button> -->
-      <!-- fake auth for now -->
-      <button on:click={() => userRef.add({
-        name: $email,
-        total: 0,
-        cart: []
-      })}>Sign Up!</button>
-    </Collection>
-  {/if}
+  <div>
+    <label for='merchant'>
+      Merchant
+      <input type='radio' value='merchants' bind:value={$userType} id='merchant' bind:group={$userType}>
+    </label>
+  </div>
+</div>
+<!-- Conditional to make sure the user selects a type, could also make a default value -->
+{#if $userType !== ""}
+  <button on:click={() => signUp()}>Sign Up</button>
+{/if}

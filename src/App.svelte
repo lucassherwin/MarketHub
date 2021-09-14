@@ -12,7 +12,7 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  // const db = firebase.firestore();
+  let db = firebase.firestore();
 
   // components
   import SignUp from './components/SignUp.svelte';
@@ -35,7 +35,7 @@
       
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->
-        <SignUp auth={auth} />
+        <SignUp auth={auth} db={db} />
       </div>
 
       <hr />
@@ -43,9 +43,11 @@
 
     <h1>Customers</h1>
     <Collection path={'customers'} let:data={customers} on:data={(e) => console.log(e)}>
-      {#each customers as customer}
-        {customer.name}
-      {/each}
+      <ul>
+        {#each customers as customer}
+          <li>{customer.name}</li>
+        {/each}
+      </ul>
     </Collection>
 
     <Market />

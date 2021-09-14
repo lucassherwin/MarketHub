@@ -6,4 +6,4 @@ export const password = writable('');
 export const userType = writable(''); // 'customer' or 'merchant'
 export const name = writable('');
 
-export const currentUser = writable(null);
+export const currentUser = writable(null); // save the uid to query the doc and the userType -> [uid, userType]
