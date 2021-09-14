@@ -28,7 +28,7 @@
   }
 </script>
 
-<h1>Sign Up</h1>
+<h1>Sign Up To Get Started</h1>
 
 <label>Name:</label>
 <input type='text' bind:value={$name}>

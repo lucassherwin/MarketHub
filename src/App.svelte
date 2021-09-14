@@ -33,24 +33,25 @@
 
       <button on:click={() => auth.signOut()}>Sign Out</button>
       
+      <hr />
+      <Market />
+
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->
         <SignUp auth={auth} db={db} />
       </div>
 
-      <hr />
     </User>
 
-    <h1>Customers</h1>
+    <!-- <h1>Customers</h1>
     <Collection path={'customers'} let:data={customers} on:data={(e) => console.log(e)}>
       <ul>
         {#each customers as customer}
           <li>{customer.name}</li>
         {/each}
       </ul>
-    </Collection>
+    </Collection> -->
 
-    <Market />
   </FirebaseApp>
 
 </main>
