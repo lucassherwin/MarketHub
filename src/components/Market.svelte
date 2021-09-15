@@ -1,14 +1,5 @@
 <script>
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
-  import Modal, { getModal } from './Modal.svelte'
-
-
-  let name = 'world'
-  let selection
-
-  function setSelection(res){
-		selection=res
-	}
 </script>
 
 <div class='box'></div>
@@ -16,28 +7,11 @@
   <!-- loop over merchants and draw a square for each -->
   <Collection path={'merchants'} let:data={merchants}>
     {#each merchants as merchant}
-      <div class='square' on:click={()=>getModal('', merchant).open()}>{merchant.name}</div>
+      <div class='square'>{merchant.name}</div>
     {/each}
   </Collection>
 
 </div>
-
-<Modal>
-	<h1>Hello {name}!</h1>
-	<!-- opening a model with an `id` and specifying a callback	 -->
-	<button on:click={()=>getModal('second').open(setSelection)}>
-		Open Nested Popup
-	</button>
-	{#if selection}
-	<p>
-		Your selection was: {selection}
-	</p>
-	{/if}
-</Modal>
-
-<!-- <button on:click={()=>getModal().open()}>
-	Open First Popup
-</button> -->
 
 <style>
   .marketContainer {
