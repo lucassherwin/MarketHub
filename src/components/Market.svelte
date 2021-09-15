@@ -1,17 +1,56 @@
 <script>
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
+
+  import Modal from './Modal.svelte'
+
+  import { currentMerchant, cart } from '../stores';
+
+
+  let showModal = false;
+
+  function toggleModal(merchant) {
+    $currentMerchant = merchant
+    console.log('open');
+    showModal = !showModal;
+  }
+
+  function closeModal() {
+    console.log('close');
+    showModal = !showModal;
+    $currentMerchant = null; // reset currentMerchant
+  }
+
+  let userCart = [];
+  function handleAddToCart(event) {
+    console.log('>>>>', event.detail);
+    // userCart = [...userCart, event.detail];
+    userCart.push(event.detail)
+    // $cart = [...$cart, event.deatil]
+    console.log('cart', $cart)
+  }
+
 </script>
+
+{#if showModal}
+  <Modal on:toggle={closeModal} on:addToCart={handleAddToCart} />
+{/if}
 
 <div class='box'></div>
 <div class='marketContainer'>
   <!-- loop over merchants and draw a square for each -->
   <Collection path={'merchants'} let:data={merchants}>
     {#each merchants as merchant}
-      <div class='square'>{merchant.name}</div>
+      <div class='square' on:click={toggleModal(merchant)}>{merchant.name}</div>
     {/each}
   </Collection>
-
 </div>
+
+<span>Cart:</span>
+<ul>
+  {#each userCart as item}
+    <li>{selected}</li>
+  {/each}
+</ul>
 
 <style>
   .marketContainer {

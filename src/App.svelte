@@ -18,7 +18,6 @@
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
   import Market from './components/Market.svelte';
-  import Modal, { showModal } from './components/Modal.svelte'
 </script>
 
 <main>
@@ -41,8 +40,6 @@
         <!-- <SignIn auth={auth} /> -->
         <SignUp auth={auth} db={db} />
       </div>
-
-      <Modal />
 
     </User>
 
