@@ -23,7 +23,6 @@
       else {
         db.collection($userType).doc(userCred.user.uid).set({
           name: $name,
-          cartTotal: 0,
           products: []
         }).then(() => {
           console.log('signed in successfully')

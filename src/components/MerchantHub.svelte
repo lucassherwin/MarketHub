@@ -29,7 +29,6 @@
 
     // update state
     $currentMerchantProducts = [...$currentMerchantProducts, {type, pricePerUnit}];
-    console.log($currentMerchantProducts);
     // add in firebase
     db.collection('merchants').doc(user).update({products: $currentMerchantProducts});
     // alert user that product was added
@@ -48,6 +47,7 @@
     <li>{p.type}</li>
   {/each}
 </ul>
+
 <button on:click={toggleMerchantModal}>Add Product</button>
 
 {#if showMerchantModal}
