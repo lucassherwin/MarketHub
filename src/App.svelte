@@ -14,6 +14,8 @@
 
   let db = firebase.firestore();
 
+  let signIn = false
+
   // components
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
@@ -33,7 +35,13 @@
       <Market db={db} />
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->
-        <SignUp auth={auth} db={db} />
+        {#if !signIn}
+          <SignUp auth={auth} db={db} />
+          <p class="text-blue-400" on:click={() => signIn = !signIn}>Click here to sign in</p>
+        {:else}
+          <SignIn auth={auth} />
+        {/if}
+        
       </div>
     </User>
   </FirebaseApp>
@@ -41,7 +49,7 @@
 
 
 <!-- Styles -->
-<!-- <style>
+<style>
   main {
     text-align: center;
     padding: 1em;
@@ -65,4 +73,4 @@
       max-width: none;
     }
   }
-</style> -->
+</style>

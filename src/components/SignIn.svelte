@@ -1,6 +1,4 @@
 <script>
-  import signInWithEmailAndPassword from 'firebase/auth';
-
   import { email, password } from '../stores';
 
   export let auth;
