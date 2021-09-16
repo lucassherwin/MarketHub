@@ -3,7 +3,7 @@
 
   import createUserWithEmailAndPassword from 'firebase/auth';
 
-  import { email, password, userType, currentUser, name } from '../stores';
+  import { email, password, userType, name } from '../stores';
 
   export let auth;
   export let db;
