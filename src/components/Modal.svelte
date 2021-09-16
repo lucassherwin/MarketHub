@@ -12,7 +12,6 @@ import { FirebaseApp, User, Doc, Collection } from "sveltefire";
   let item; // { pricePerUnit: x, type: 'y'}
   let amount; // how many
   function addToCart(user, customerData, customerDocRef) { // send item type and quantity
-    // console.log('1 >>>>', user.uid)
     dispatch('addToCart', {
       item,
       amount,
@@ -51,20 +50,12 @@ import { FirebaseApp, User, Doc, Collection } from "sveltefire";
                   {/each}
                 </select>
               </label>
-    
               <input bind:value={amount}>
-    
               <button disabled={!amount} type='submit'>Add To Cart</button>
             </form>
           </div>
           <!--footer-->
           <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-            <!-- <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" on:click={toggleModal}>
-              Close
-            </button>
-            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" on:click={toggleModal}>
-              Save Changes
-            </button> -->
           </div>
         </div>
       </div>

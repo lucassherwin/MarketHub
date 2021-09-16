@@ -28,14 +28,13 @@
     let amount = event.detail.amount
 
     let customerData = event.detail.customerData;
-    let customerDocRef = event.detail.customerDocRef;
-    console.log('customerData', customerData)
+
     // add the item to the cart
     $cart = [...$cart, item]
 
     // get previous total from user doc
     let prevTotal = customerData.cartTotal;
-    
+
     // calculate total
     let total = prevTotal + (item.pricePerUnit * amount);
 

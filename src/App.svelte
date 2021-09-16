@@ -23,37 +23,20 @@
 <main>
   <!-- 1. 🔥 Firebase App -->
   <FirebaseApp {firebase}>
-
     <h1>Welcome to MarketHub</h1>
-
     <!-- 2. 😀 Get the current user -->
     <User let:user let:auth>
       Welcome User
       <em>{user.uid}</em>
-
       <button on:click={() => auth.signOut()}>Sign Out</button>
-      
       <hr />
       <Market db={db} />
-
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->
         <SignUp auth={auth} db={db} />
       </div>
-
     </User>
-
-    <!-- <h1>Customers</h1>
-    <Collection path={'customers'} let:data={customers} on:data={(e) => console.log(e)}>
-      <ul>
-        {#each customers as customer}
-          <li>{customer.name}</li>
-        {/each}
-      </ul>
-    </Collection> -->
-
   </FirebaseApp>
-
 </main>
 
 
