@@ -1,29 +1,30 @@
 <!-- https://www.creative-tim.com/learning-lab/tailwind/svelte/modals/notus -->
 <script>
-import { FirebaseApp, User, Doc, Collection } from "sveltefire";
-  import { currentMerchant } from '../stores';
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+  import { FirebaseApp, User, Doc, Collection } from "sveltefire";
+    import { currentMerchant } from '../stores';
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
 
-  function closeModal() {
-    dispatch('toggle');
-  }
+    let product = '';
+    let pricePerUnit;
+  
+    function closeModal() {
+      dispatch('toggle');
+    }
 
-  let item; // { pricePerUnit: x, type: 'y'}
-  let amount; // how many
-  function addToCart(user, customerData, customerDocRef) { // send item type and quantity
-    dispatch('addToCart', {
-      item,
-      amount,
-      user: user.uid,
-      customerData,
-      customerDocRef
-    })
-  }
+    function addProduct(user, merchantData) {
+      console.log('add prodduct', product, 'ppu', pricePerUnit)
+      dispatch('addProduct', {
+        product,
+        pricePerUnit,
+        user,
+        merchantData
+      })
+    }
 </script>
 
 <User let:user={user}>
-  <Doc path={`customers/${user.uid}`} let:data={customerData} let:ref={customerDocRef}>
+  <Doc path={`merchants/${user.uid}`} let:data={merchantData} let:ref={merchantRef}>
     <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
       <div class="relative w-auto my-6 mx-auto max-w-3xl">
         <!--content-->
@@ -31,7 +32,7 @@ import { FirebaseApp, User, Doc, Collection } from "sveltefire";
           <!--header-->
           <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
             <h3 class="text-3xl font-semibold">
-              {$currentMerchant.name}
+              Add Product
             </h3>
             <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" on:click={closeModal}>
               <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -41,17 +42,16 @@ import { FirebaseApp, User, Doc, Collection } from "sveltefire";
           </div>
           <!--body-->
           <div class='flex'>
-            <form on:submit|preventDefault={addToCart(user, customerData, customerDocRef)}>
-              <label class="block text-left">
-                <span class="text-red-500">Select Product</span>
-                <select bind:value={item} class='form-select block w-full mt-1'>
-                  {#each $currentMerchant.products as p}
-                    <option value={p}>{p.type}</option>
-                  {/each}
-                </select>
+            <form on:submit|preventDefault={addProduct(user, merchantData)}>
+              <label>
+                Product Name:
+                <input type='text' bind:value={product}>
               </label>
-              <input bind:value={amount}>
-              <button disabled={!amount} type='submit'>Add To Cart</button>
+              <label>
+                Price Per Unit:
+                <input bind:value={pricePerUnit}>
+              </label>
+              <button disabled={!pricePerUnit} type='submit'>Add Product</button>
             </form>
           </div>
           <!--footer-->

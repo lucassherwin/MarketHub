@@ -11,13 +11,24 @@
   function signUp() {
     auth.createUserWithEmailAndPassword($email, $password)
     .then(userCred => { // creates a doc with the users uid to query against later on
-      db.collection($userType).doc(userCred.user.uid).set({
-        name: $name,
-        cartTotal: 0,
-        cart: []
-      }).then(() => {
-        console.log('signed in successfully')
-      })
+      if($userType === 'customers') {
+        db.collection($userType).doc(userCred.user.uid).set({
+          name: $name,
+          cartTotal: 0,
+          cart: []
+        }).then(() => {
+          console.log('signed in successfully')
+        })
+      }
+      else {
+        db.collection($userType).doc(userCred.user.uid).set({
+          name: $name,
+          cartTotal: 0,
+          products: []
+        }).then(() => {
+          console.log('signed in successfully')
+        })
+      }
     })
     .catch((error) => {
       console.error(error.code, error.message)
@@ -51,6 +62,7 @@
     </label>
   </div>
 </div>
+
 <!-- Conditional to make sure the user selects a type, could also make a default value -->
 {#if $userType !== ""}
   <button on:click={() => signUp()}>Sign Up</button>
