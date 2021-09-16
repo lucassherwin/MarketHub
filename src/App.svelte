@@ -34,7 +34,7 @@
       <button on:click={() => auth.signOut()}>Sign Out</button>
       
       <hr />
-      <Market />
+      <Market db={db} />
 
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->

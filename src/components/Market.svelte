@@ -1,10 +1,9 @@
 <script>
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
-
   import Modal from './Modal.svelte'
+  import { currentMerchant, cart, currentUser } from '../stores';
 
-  import { currentMerchant, cart } from '../stores';
-
+  export let db;
 
   let showModal = false;
 
@@ -21,7 +20,16 @@
   }
 
   function handleAddToCart(event) {
-    $cart = [...$cart, event.detail]
+    // event.detail: item, user
+    // item: { type, amount }
+    // user: uid
+    let user = event.detail.user
+    let item = event.detail.item
+
+    $cart = [...$cart, item]
+    // update in firestore
+    // $currentUser[0]
+    db.collection('customers').doc(user).update({cart: $cart});
     console.log('cart', $cart)
   }
 

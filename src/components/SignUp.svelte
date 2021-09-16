@@ -18,8 +18,8 @@
         cartTotal: 0,
         cart: []
       }).then(() => {
-        $currentUser = [userCred.user.uid, $userType] // save currentUser data
-        console.log('this works', $currentUser)
+        // $currentUser = [userCred.user.uid, $userType] // save currentUser data
+        console.log('signed in successfully')
       })
     })
     .catch((error) => {
