@@ -12,6 +12,8 @@
 
   firebase.initializeApp(firebaseConfig);
 
+  import { userType } from './stores'
+
   let db = firebase.firestore();
 
   let signIn = false
@@ -20,6 +22,7 @@
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
   import Market from './components/Market.svelte';
+  import MerchantHub from './components/MerchantHub.svelte';
 </script>
 
 <main>
@@ -32,7 +35,11 @@
       <em>{user.uid}</em>
       <button on:click={() => auth.signOut()}>Sign Out</button>
       <hr />
-      <Market db={db} />
+      {#if $userType === 'customers'}
+        <Market db={db} />
+      {:else}
+        <MerchantHub db={db} />
+      {/if}
       <div slot="signed-out">
         <!-- <SignIn auth={auth} /> -->
         {#if !signIn}

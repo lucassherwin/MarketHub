@@ -19,7 +19,7 @@
     $currentMerchant = null; // reset currentMerchant
   }
 
-  async function handleAddToCart(event) {
+  function handleAddToCart(event) {
     // event.detail: item, user
     // item: { type, amount }
     // user: uid
@@ -41,7 +41,6 @@
     // update cart in firestore
     db.collection('customers').doc(user).update({cart: $cart, total});
   }
-
 </script>
 
 {#if showModal}
