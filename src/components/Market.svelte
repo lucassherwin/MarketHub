@@ -1,7 +1,7 @@
 <script>
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
   import Modal from './Modal.svelte'
-  import { currentMerchant, cart, currentUser } from '../stores';
+  import { currentMerchant, cart } from '../stores';
 
   export let db;
 
@@ -19,18 +19,27 @@
     $currentMerchant = null; // reset currentMerchant
   }
 
-  function handleAddToCart(event) {
+  async function handleAddToCart(event) {
     // event.detail: item, user
     // item: { type, amount }
     // user: uid
-    let user = event.detail.user
-    let item = event.detail.item
+    let user = event.detail.user // users uid
+    let item = event.detail.item // { pricePerUnit: x, type: 'y'}
+    let amount = event.detail.amount
 
+    let customerData = event.detail.customerData;
+
+    // add the item to the cart
     $cart = [...$cart, item]
-    // update in firestore
-    // $currentUser[0]
-    db.collection('customers').doc(user).update({cart: $cart});
-    console.log('cart', $cart)
+
+    // get previous total from user doc
+    let prevTotal = customerData.cartTotal;
+
+    // calculate total
+    let total = prevTotal + (item.pricePerUnit * amount);
+
+    // update cart in firestore
+    db.collection('customers').doc(user).update({cart: $cart, total});
   }
 
 </script>

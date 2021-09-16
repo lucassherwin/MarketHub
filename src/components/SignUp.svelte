@@ -3,14 +3,12 @@
 
   import createUserWithEmailAndPassword from 'firebase/auth';
 
-  import { email, password, userType, currentUser, name } from '../stores';
+  import { email, password, userType, name } from '../stores';
 
   export let auth;
   export let db;
 
   function signUp() {
-    // console.log(email, password, userType);
-
     auth.createUserWithEmailAndPassword($email, $password)
     .then(userCred => { // creates a doc with the users uid to query against later on
       db.collection($userType).doc(userCred.user.uid).set({
@@ -18,7 +16,6 @@
         cartTotal: 0,
         cart: []
       }).then(() => {
-        // $currentUser = [userCred.user.uid, $userType] // save currentUser data
         console.log('signed in successfully')
       })
     })
@@ -38,7 +35,6 @@
 
 <label>Password:</label>
 <input type="password" bind:value={$password}>
-
 
 <div>
   <p>I am a:</p>
