@@ -20,12 +20,8 @@
     $currentMerchant = null; // reset currentMerchant
   }
 
-  let userCart = [];
   function handleAddToCart(event) {
-    console.log('>>>>', event.detail);
-    // userCart = [...userCart, event.detail];
-    userCart.push(event.detail)
-    // $cart = [...$cart, event.deatil]
+    $cart = [...$cart, event.detail]
     console.log('cart', $cart)
   }
 
@@ -47,8 +43,8 @@
 
 <span>Cart:</span>
 <ul>
-  {#each userCart as item}
-    <li>{selected}</li>
+  {#each $cart as item}
+    <li>{item.type}</li>
   {/each}
 </ul>
 

@@ -10,12 +10,12 @@
     dispatch('toggle');
   }
 
-  let selected;
+  let type;
   let amount;
-  function addToCart() { // send selected item and quantity
-    console.log(selected, amount)
+  function addToCart() { // send item type and quantity
+    console.log(type, amount)
     dispatch('addToCart', {
-      selected,
+      type,
       amount
     })
   }
@@ -43,7 +43,7 @@
         <form on:submit|preventDefault={addToCart}>
           <label class="block text-left">
             <span class="text-red-500">Select Produce</span>
-            <select bind:value={selected} class='form-select block w-full mt-1'>
+            <select bind:value={type} class='form-select block w-full mt-1'>
               {#each $currentMerchant.produce as p}
                 <option value={p.type}>{p.type}</option>
               {/each}
