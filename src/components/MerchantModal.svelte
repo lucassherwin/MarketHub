@@ -34,8 +34,8 @@
             <h3 class="text-3xl font-semibold">
               Add Product
             </h3>
-            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" on:click={closeModal}>
-              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            <button class=" absolute p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" on:click={closeModal}>
+              <span class="bg-transparent text-black h-6 w-6 text-2xl outline-none focus:outline-none">
                 X
               </span>
             </button>
@@ -63,3 +63,4 @@
     <div class="opacity-25 fixed inset-0 z-40 bg-black"></div>
   </Doc>
 </User>
+

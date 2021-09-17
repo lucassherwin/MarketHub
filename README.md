@@ -10,9 +10,9 @@
 - [] CSS
   - [x] Sign In Page
   - [x] Sign Up Page
-  - [] Market
+  - [x] Market
   - [] MerchantHub
-  - [] Cart
+  - [x] Cart
 - [x] Choose userType when siging in
 
 ## Future
