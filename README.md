@@ -7,7 +7,13 @@
 - Vist http://localhost:5000/
 
 ## ToDo
+- [] CSS
+  - [x] Sign In Page
+  - [x] Sign Up Page
+  - [] Market
+  - [] MerchantHub
+- [x] Choose userType when siging in
+
+## Future
 - [] Add routing
 
-## Known Issues
-- Logging in as an already existing merchant doesnt load their products

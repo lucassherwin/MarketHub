@@ -61,13 +61,15 @@
   </Collection>
 </div>
 
-<span>Cart:</span>
-<span>Total: {total}</span>
-<ul>
-  {#each $cart as item}
-    <li>{item.type}</li>
-  {/each}
-</ul>
+{#if $cart.length > 0}
+  <span>Cart:</span>
+  <span>Total: {total}</span>
+  <ul>
+    {#each $cart as item}
+      <li>{item.type}</li>
+    {/each}
+  </ul>
+{/if}
 
 <style>
   .marketContainer {
