@@ -16,14 +16,20 @@
 
   let db = firebase.firestore();
 
-  let signIn = false
-
+  
   // components
   import SignUp from './components/SignUp.svelte';
   import SignIn from "./components/SignIn.svelte";
   import Market from './components/Market.svelte';
   import MerchantHub from './components/MerchantHub.svelte';
-</script>
+
+  let signUp = false
+
+  function toggleSignUp() {
+    signUp = !signUp;
+  }
+
+  </script>
 
 <main>
   <!-- 1. 🔥 Firebase App -->
@@ -33,22 +39,21 @@
     <User let:user let:auth>
       Welcome User
       <em>{user.uid}</em>
-      <button on:click={() => auth.signOut()}>Sign Out</button>
+      <button on:click={() => auth.signOut()} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Sign Out</button>
       <hr />
       {#if $userType === 'customers'}
         <Market db={db} />
       {:else}
         <MerchantHub db={db} />
       {/if}
-      <div slot="signed-out">
+      <div slot="signed-out" class="bg-gray-300">
         <!-- <SignIn auth={auth} /> -->
-        {#if !signIn}
-          <SignUp auth={auth} db={db} />
-          <p class="text-blue-400" on:click={() => signIn = !signIn}>Click here to sign in</p>
+        {#if !signUp}
+          <SignIn auth={auth} on:toggleSignUp={toggleSignUp} />
+          <!-- <p class="text-blue-400" on:click={showSignUp}>Click here to create an account</p> -->
         {:else}
-          <SignIn auth={auth} />
+          <SignUp auth={auth} db={db} on:toggleSignUp={toggleSignUp} />
         {/if}
-        
       </div>
     </User>
   </FirebaseApp>

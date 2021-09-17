@@ -7,6 +7,8 @@
 
   let showModal = false;
 
+  let total;
+
   function toggleModal(merchant) {
     $currentMerchant = merchant
     console.log('open');
@@ -36,10 +38,12 @@
     let prevTotal = customerData.cartTotal;
 
     // calculate total
-    let total = prevTotal + (item.pricePerUnit * amount);
+    total = prevTotal + (item.pricePerUnit * amount);
 
     // update cart in firestore
     db.collection('customers').doc(user).update({cart: $cart, total});
+
+    alert(`Added ${item.type} to cart. Your total is now ${total}`);
   }
 </script>
 
@@ -58,6 +62,7 @@
 </div>
 
 <span>Cart:</span>
+<span>Total: {total}</span>
 <ul>
   {#each $cart as item}
     <li>{item.type}</li>

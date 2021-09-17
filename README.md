@@ -6,5 +6,8 @@
 - npm run dev
 - Vist http://localhost:5000/
 
+## ToDo
+- [] Add routing
+
 ## Known Issues
-- Loggin in as an already existing merchant doesnt load their products
+- Logging in as an already existing merchant doesnt load their products
