@@ -52,17 +52,23 @@
   <Modal on:toggle={closeModal} on:addToCart={handleAddToCart} />
 {/if}
 
-<div class='box'></div>
-<div class='marketContainer'>
-  <!-- loop over merchants and draw a square for each -->
-  <Collection path={'merchants'} let:data={merchants}>
-    {#each merchants as merchant}
-      <div class='square' on:click={toggleModal(merchant)}>{merchant.name}</div>
-    {/each}
-  </Collection>
+<div class="flex">
+  <div class='flex-1'>
+    <Cart />
+  </div>
+  <div class='flex-1'>
+    <div class='box'></div>
+    <div class='marketContainer'>
+      <!-- loop over merchants and draw a square for each -->
+      <Collection path={'merchants'} let:data={merchants}>
+        {#each merchants as merchant}
+          <div class='square' on:click={toggleModal(merchant)}>{merchant.name}</div>
+        {/each}
+      </Collection>
+    </div>
+  </div>
 </div>
 
-<Cart />
 
 <style>
   .marketContainer {

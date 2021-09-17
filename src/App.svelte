@@ -12,7 +12,7 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  import { userType } from './stores'
+  import { userType, cart } from './stores'
 
   let db = firebase.firestore();
 
@@ -29,6 +29,10 @@
     signUp = !signUp;
   }
 
+  function setUserCart(data) {
+    $cart = data.detail.data.cart;
+  }
+
   </script>
 
 <main>
@@ -37,15 +41,17 @@
     <h1>Welcome to MarketHub</h1>
     <!-- 2. 😀 Get the current user -->
     <User let:user let:auth>
-      Welcome User
-      <em>{user.uid}</em>
-      <button on:click={() => auth.signOut()} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Sign Out</button>
-      <hr />
-      {#if $userType === 'customers'}
-        <Market db={db} />
-      {:else}
-        <MerchantHub db={db} />
-      {/if}
+      <Doc path={`${$userType}/${user.uid}`} let:data={userData} on:data={setUserCart}>
+        Welcome User
+        <em>{user.uid}</em>
+        <button on:click={() => auth.signOut()} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Sign Out</button>
+        <hr />
+        {#if $userType === 'customers'}
+          <Market db={db} />
+        {:else}
+          <MerchantHub db={db} />
+        {/if}
+      </Doc>
       <div slot="signed-out" class="bg-gray-300">
         <!-- <SignIn auth={auth} /> -->
         {#if !signUp}
