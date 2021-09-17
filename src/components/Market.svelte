@@ -1,6 +1,7 @@
 <script>
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
   import Modal from './Modal.svelte'
+  import Cart from './Cart.svelte';
   import { currentMerchant, cart } from '../stores';
 
   export let db;
@@ -61,15 +62,7 @@
   </Collection>
 </div>
 
-{#if $cart.length > 0}
-  <span>Cart:</span>
-  <span>Total: {total}</span>
-  <ul>
-    {#each $cart as item}
-      <li>{item.type}</li>
-    {/each}
-  </ul>
-{/if}
+<Cart />
 
 <style>
   .marketContainer {

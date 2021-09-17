@@ -12,6 +12,7 @@
   - [x] Sign Up Page
   - [] Market
   - [] MerchantHub
+  - [] Cart
 - [x] Choose userType when siging in
 
 ## Future
